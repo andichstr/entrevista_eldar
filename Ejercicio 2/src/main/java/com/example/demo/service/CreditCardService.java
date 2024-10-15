@@ -31,6 +31,8 @@ public class CreditCardService implements GenericService<CreditCard, CreditCardR
     private static final String ENCRYPT_KEY = "Y2lhbzU2Nzg5MTIzNDU2Cg==";
     private static final Float MINIMUM_INTEREST = 0.3F;
     private static final Float MAXIMUM_INTEREST = 5F;
+    private static final int MINIMUM_AMOUNT = 0;
+    private static final int MAXIMUM_AMOUNT = 1000;
 
 
     @Override
@@ -155,6 +157,10 @@ public class CreditCardService implements GenericService<CreditCard, CreditCardR
             brand = CardBrand.valueOf(dto.getBrand().toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new CustomException("The card brand: " + dto.getBrand() + " is not valid in our system", e);
+        }
+
+        if(dto.getAmount() < MINIMUM_AMOUNT || dto.getAmount() > MAXIMUM_AMOUNT) {
+            throw new CustomException("The amount: " + dto.getAmount() + " is off the valid limits of our system. Please, insert a positive number less or equal than 1000");
         }
         Calendar calendar = Calendar.getInstance();
         int day, month, year;
