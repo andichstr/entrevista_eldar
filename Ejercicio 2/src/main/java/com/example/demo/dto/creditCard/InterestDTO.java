@@ -11,7 +11,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+/**
+ * This DTO is used to calculate the interests of a transaction,
+ * based on the brand of the credit card.
+ */
 public class InterestDTO {
-    private CardBrand brand;
+    private String brand;
     private Integer amount;
 }

@@ -14,6 +14,10 @@ import java.util.Date;
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
+/**
+ * This DTO represents a credit card model, used to transport
+ * data between the clients and the server.
+ */
 public class CreditCardDTO extends ModelDTO {
     private CardBrand brand;
     private String cardNumber;

@@ -14,6 +14,10 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
+/**
+ * Model of the credit card in our database.
+ * The card number is encrypted with a simple encryption method.
+ */
 public class CreditCard extends GenericModel {
     private CardBrand brand;
     private byte[] cardNumber;

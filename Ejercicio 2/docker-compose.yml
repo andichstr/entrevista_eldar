@@ -9,7 +9,7 @@ services:
       mysqldb:
         condition: service_healthy
     environment:
-      - DATABASE_URL=jdbc:mysql://mysqldb:3306/db_eldar
+      - DATABASE_URL=jdbc:mysql://mysqldb:3306/eldar_db
       - DATABASE_USERNAME=root
       - DATABASE_PASSWORD=root
   mysqldb:

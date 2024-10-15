@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.dto.creditCard.CardBrand;
 import com.example.demo.dto.creditCard.CreditCardDTO;
 import com.example.demo.dto.creditCard.InterestDTO;
+import com.example.demo.exceptions.CustomException;
 import com.example.demo.model.CreditCard;
 import com.example.demo.repository.CreditCardRepository;
 import com.example.demo.utils.EncryptUtil;
@@ -13,8 +14,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
+/*
+* Service that handles CRUD operations of credit cards, and calculates the interests of any operation
+*/
 @Service
 @AllArgsConstructor
 public class CreditCardService implements GenericService<CreditCard, CreditCardRepository> {
@@ -145,10 +150,16 @@ public class CreditCardService implements GenericService<CreditCard, CreditCardR
      * @return the interest as a float
      */
     public Float calculateInterest(InterestDTO dto) {
+        CardBrand brand;
+        try {
+            brand = CardBrand.valueOf(dto.getBrand().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new CustomException("The card brand: " + dto.getBrand() + " is not valid in our system", e);
+        }
         Calendar calendar = Calendar.getInstance();
         int day, month, year;
         Float interest = 0f;
-        switch (dto.getBrand()) {
+        switch (brand) {
             // last 2 digits of year / month
             case VISA:
                 String yearString = String.valueOf(calendar.get(Calendar.YEAR));
@@ -170,5 +181,15 @@ public class CreditCardService implements GenericService<CreditCard, CreditCardR
         if (interest < MINIMUM_INTEREST) return MINIMUM_INTEREST;
         if (interest > MAXIMUM_INTEREST) return MAXIMUM_INTEREST;
         return interest;
+    }
+
+    /**
+     *
+     * @param total the total amount of the operation
+     * @param interest the interest tax on decimals
+     * @return the total amount with the interests applied
+     */
+    public Float calculateTotal(int total, Float interest) {
+        return total + (total*interest/100);
     }
 }
