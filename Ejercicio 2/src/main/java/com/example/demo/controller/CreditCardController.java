@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.creditCard.InterestDTO;
+import com.example.demo.dto.ErrorResponseDTO;
+import com.example.demo.dto.interest.InterestDTO;
+import com.example.demo.dto.interest.InterestResponseDTO;
 import com.example.demo.service.CreditCardService;
 import lombok.Getter;
 import org.modelmapper.ModelMapper;
@@ -18,13 +20,10 @@ public class CreditCardController {
     @Autowired @Getter private CreditCardService service;
 
     @PostMapping("/calculate-interest")
-    public ResponseEntity<String> calculateInterest(@RequestBody InterestDTO dto) {
-        try {
-            Float interest = getService().calculateInterest(dto);
-            Float total = getService().calculateTotal(dto.getAmount(), interest);
-            return ResponseEntity.ok("The interest of this operation will be: " + interest + ", and the total to pay is: " + total);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error calculating the interest for this operation. Error: " + e.getMessage());
-        }
+    public ResponseEntity<InterestResponseDTO> calculateInterest(@RequestBody InterestDTO dto) {
+        Float interest = getService().calculateInterest(dto);
+        Float total = getService().calculateTotal(dto.getAmount(), interest);
+        InterestResponseDTO response = new InterestResponseDTO(interest, total);
+        return ResponseEntity.ok(response);
     }
 }

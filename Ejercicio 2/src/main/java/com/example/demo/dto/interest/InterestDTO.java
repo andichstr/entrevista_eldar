@@ -1,4 +1,4 @@
-package com.example.demo.dto.creditCard;
+package com.example.demo.dto.interest;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;

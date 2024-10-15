@@ -12,12 +12,21 @@ Run the Main.java class and type into the console the needed data.
 It's a REST API on Spring Boot, prepared to handle CRUD operations for credit cards.
 The only endpoint created and needed for this challenge is /credit-card/calculate-interest
 
+The JSON object that can be sent in the body of the post request should have this structure:
+{
+"brand": "your_brand",
+"amount": 500
+}
+
+The brands that the system admits are: "VISA", "NARA", "AMEX".
+The amount should be a number between 0 and 1000 included.
+
 The solution is hosted on Render.
 Here is the url: https://entrevista-eldar.onrender.com
 
 ## Exercise 3
 
-The answer to this question is 10. The limit clause will only return 10 registers.
+The answer to this question is 10. The limit clause will cap the return to 10 registers.
 
 ## Exercise 4
 

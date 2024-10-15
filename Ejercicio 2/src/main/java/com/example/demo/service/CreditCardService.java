@@ -2,19 +2,19 @@ package com.example.demo.service;
 
 import com.example.demo.dto.creditCard.CardBrand;
 import com.example.demo.dto.creditCard.CreditCardDTO;
-import com.example.demo.dto.creditCard.InterestDTO;
+import com.example.demo.dto.interest.InterestDTO;
+import com.example.demo.exceptions.AmountOutOfBoundsException;
+import com.example.demo.exceptions.BrandNotValidException;
 import com.example.demo.exceptions.CustomException;
 import com.example.demo.model.CreditCard;
 import com.example.demo.repository.CreditCardRepository;
 import com.example.demo.utils.EncryptUtil;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 /*
@@ -156,11 +156,11 @@ public class CreditCardService implements GenericService<CreditCard, CreditCardR
         try {
             brand = CardBrand.valueOf(dto.getBrand().toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new CustomException("The card brand: " + dto.getBrand() + " is not valid in our system", e);
+            throw new BrandNotValidException("The card brand: " + dto.getBrand() + " is not valid in our system", e);
         }
 
         if(dto.getAmount() < MINIMUM_AMOUNT || dto.getAmount() > MAXIMUM_AMOUNT) {
-            throw new CustomException("The amount: " + dto.getAmount() + " is off the valid limits of our system. Please, insert a positive number less or equal than 1000");
+            throw new AmountOutOfBoundsException("The amount: " + dto.getAmount() + " is off the valid limits of our system. Please, insert a positive number less or equal than 1000");
         }
         Calendar calendar = Calendar.getInstance();
         int day, month, year;
