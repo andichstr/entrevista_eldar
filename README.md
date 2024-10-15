@@ -21,7 +21,9 @@ The JSON object that can be sent in the body of the post request should have thi
 The brands that the system admits are: "VISA", "NARA", "AMEX".
 The amount should be a number between 0 and 1000 included.
 
-The solution is hosted on Render.
+The solution is hosted on Render, on its free tier.
+The first request could take a minute to complete because of it, but then it should respond normally.
+
 Here is the url: https://entrevista-eldar.onrender.com
 
 ## Exercise 3
