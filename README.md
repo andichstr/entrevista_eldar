@@ -34,4 +34,7 @@ The answer to this question is that it will not compile because is missing a ret
 
 ## Exercise 5
 
-TBD
+Inside the Main.java class, is an array with a few words inside of it.
+It's initialized with the words of the exercise example. You can change the words inside of it to test other scenarios.
+
+Just run the Main.java class to execute this exercise.
